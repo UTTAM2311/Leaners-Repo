@@ -4,6 +4,7 @@ var TSP = {
 		nodeSelector = nodeSelector ? nodeSelector : randomNode;
 		return __travel__(nodes, nodeSelector, start_node);
 
+		//Internal travel function.
 		function __travel__(nodes, nodeSelector, currentNode) {
 			var freeNodes = getFreeNodes(currentNode, nodes);
 			var nextNode = nodeSelector(currentNode, freeNodes);
@@ -14,7 +15,7 @@ var TSP = {
 			}
 
 		}
-
+		// return the free nodes by splicing the current node.
 		function getFreeNodes(currentNode, nodes) {
 			var nodes = nodes.slice(0);
 			var i = nodes.indexOf(currentNode);
@@ -23,7 +24,9 @@ var TSP = {
 		}
 	}
 }
-
+/*
+	Selecting node random
+*/
 function randomNode(currentNode, nodes) {
 	var i = 0;
 	var result;
@@ -37,6 +40,9 @@ function randomNode(currentNode, nodes) {
 	return result;
 }
 
+/*
+	Return the nearest neighbour to the current node.
+*/
 function nearestNeighbour(distances) {
 	return function nearestNeighbour(currentNode, nodes) {
 		if (nodes.length <= 1) {
@@ -55,17 +61,20 @@ function nearestNeighbour(distances) {
 	}
 }
 
+//Random Function
 
 function random(maxBound) {
 	return Math.floor((Math.random() * maxBound) + 1)
 }
 
+//Generate sample.
 function generateSample(number) {
 	var nodes = generateNodes(number);
 	var distances = generateDistances(nodes);
 	return [nodes, distances];
 }
 
+// generate nodes.
 function generateNodes(number) {
 	if (number < 1) {
 		return [];
@@ -76,7 +85,7 @@ function generateNodes(number) {
 function reverse(s) {
 	return s.split('').reverse().join('');
 }
-
+// Simple logic to generate random distances.
 function generateDistances(nodes) {
 	var distances = {};
 	for (var i = 0; i < nodes.length; i++) {
