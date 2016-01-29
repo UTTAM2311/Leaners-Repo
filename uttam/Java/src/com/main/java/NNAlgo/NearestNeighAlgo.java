@@ -18,6 +18,8 @@ public class NearestNeighAlgo {
     public NearestNeighAlgo(List<Node> nodes) {
         this.nodes = nodes;
     }
+    
+    //Function should only act on arguments
     // Can we use Recursion Here.
     public List<Node> getNearestNeighbours() {
         List<Node> algoNodes = new ArrayList<>(nodes.size());
@@ -26,8 +28,11 @@ public class NearestNeighAlgo {
         Node selectNode = getRandomNode(allnodes);
         while (!allnodes.isEmpty()) {
             algoNodes.add(selectNode);
+            //function should not print on console
             System.out.println(selectNode.toString());
             allnodes = getFreeNodes.apply(selectNode, allnodes);
+            
+            //while loop, you can add inside while condition too
             if (allnodes.size() == 0) {
                 break;
             }
@@ -58,7 +63,9 @@ public class NearestNeighAlgo {
 
     private BiFunction<Node, List<Node>, List<Node>> getFreeNodes = (node, all) -> {
         List<Node> freeNodes = all;
+        //you are changing argument. you should have cloned here. You have cloned reference only.
         if (freeNodes.remove(node)) {
+            //again function acting on other than arguments
             System.out.println("removed  node " + node);
             System.out.println(" free nodes " + freeNodes);
         }
