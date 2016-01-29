@@ -18,7 +18,7 @@ public class NearestNeighAlgo {
     public NearestNeighAlgo(List<Node> nodes) {
         this.nodes = nodes;
     }
-
+    // Can we use Recursion Here.
     public List<Node> getNearestNeighbours() {
         List<Node> algoNodes = new ArrayList<>(nodes.size());
         List<Node> allnodes = nodes;
