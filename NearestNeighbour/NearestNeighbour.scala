@@ -3,29 +3,32 @@ class NearestNeighbour {
 
 	import com.rooney.bean.Node
 
-	def getTravelPath(list: List[Node]) = {
-		var currentNode : Node = list.apply(0);
-		var startNode : Node = list.apply(0);
-		println("Travel Sales Person is going to start his/her Journey from: "+startNode.name)
-		var freeNodesList : List[Node] = getFreeNodes(list, startNode)
-		for (node : Node <- freeNodesList ) {
-			var nextNode : Node = getNodeWithMinDistance(freeNodesList, currentNode)
-			currentNode = nextNode
-			freeNodesList = getFreeNodes(freeNodesList, currentNode)
+	def getTravelPath(nodesList_ : List[Node], currentNode_ :Node){
+		var nodesList = nodesList_;
+		var currentNode : Node = currentNode_;
+		println("Travel Sales Person is going to start his/her Journey from: "+currentNode.name)
+		nodesList = getFreeNodes(nodesList, currentNode)
+		if(!nodesList.isEmpty) {
+			getTravelPath(nodesList, getNodeWithMinDistance(nodesList, currentNode))
+		} else {
+			println("Time to go to TSP origin,NextCity:"+currentNode.name)	
 		}
-		println("Time to go to TSP origin,NextCity:"+startNode.name)
 	}
-	def getFreeNodes(list : List[Node], currentNode : Node) = {
-		list.filter(_.name != currentNode.name);
-	}
+	
+	val getFreeNodes = (nodesList_ : List[Node], currentNode_ : Node) => 
+		if(nodesList_.isEmpty) {
+			Nil
+		} else {
+			nodesList_.filter(_.name != currentNode_.name)
+		}
 
 	def getNodeWithMinDistance(list : List[Node], currentNode : Node) :Node = {
-		var minDistance : Int = 0
-		var calculatedDistance : Int = 0
+		var minDistance : Double = -1
+		var calculatedDistance : Double = 0
 		var minNode : Node = null
 		for (node : Node <- list) {
-			calculatedDistance = node.position-currentNode.position;	
-			if (minDistance == 0 || minDistance > calculatedDistance) {
+			calculatedDistance = Math.sqrt(Math.pow(node.x - currentNode.x, 2)+Math.pow(node.y - currentNode.y, 2));
+			if (minDistance == -1 || minDistance > calculatedDistance) {
 				minDistance = calculatedDistance;
 				minNode = node;
 			}
