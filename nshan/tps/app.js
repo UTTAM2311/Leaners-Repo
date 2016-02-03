@@ -1,5 +1,5 @@
 var TSP = {
-	findPath: function(nodes, nodeSelector) {
+	findPath: function(nodes,  nodeSelector) {
 		var start_node = randomNode(undefined, nodes);
 		nodeSelector = nodeSelector ? nodeSelector : randomNode;
 		return __travel__(nodes, nodeSelector, start_node);
@@ -44,20 +44,28 @@ function randomNode(currentNode, nodes) {
 	Return the nearest neighbour to the current node.
 */
 function nearestNeighbour(distances) {
-	return function nearestNeighbour(currentNode, nodes) {
-		if (nodes.length <= 1) {
-			return nodes[0]
+	return function __nearestNeighbour__(currentNode, nodes, nn) {
+		if (nodes.length == 0) {
+			return nn;
 		}
-		var nearest = nodes[0]
-		var nearestDistance = distances[currentNode + nodes[0]];
-		for (var i = 1; i < nodes.length; i++) {
-			var d = distances[currentNode + nodes[i]]
-			if (d < nearestDistance) {
-				nearest = nodes[i];
-				nearestDistance = d;
-			}
+		nn = getNearestNode(currentNode, nodes[0], nn);
+		return __nearestNeighbour__(currentNode, nodes.slice(1), nn);		
+	}
+
+	function getNearestNode(currentNode, node1, node2){
+		if(!node1){
+			return node2;
 		}
-		return nearest;
+		if(!node2){
+			return node1;
+		}
+		var d1 = distances[currentNode + node1];
+		var d2 = distances[currentNode + node2];
+		if(d1 < d2){
+			return node1;
+		}else{
+			return node2;
+		}
 	}
 }
 
