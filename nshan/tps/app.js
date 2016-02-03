@@ -1,6 +1,6 @@
 var TSP = {
-	findPath: function(nodes,  nodeSelector) {
-		var start_node = randomNode(undefined, nodes);
+	findPath: function(nodes,  nodeSelector, start_node) {
+		var start_node = start_node? start_node : randomNode(undefined, nodes);
 		nodeSelector = nodeSelector ? nodeSelector : randomNode;
 		return __travel__(nodes, nodeSelector, start_node);
 
@@ -114,4 +114,7 @@ var result = Object.create(TSP).findPath(data[0]);
 console.log(result);
 
 var result = Object.create(TSP).findPath(data[0], nearestNeighbour(data[1]));
+console.log(result);
+
+var result = Object.create(TSP).findPath(data[0], nearestNeighbour(data[1]), "A");
 console.log(result);
