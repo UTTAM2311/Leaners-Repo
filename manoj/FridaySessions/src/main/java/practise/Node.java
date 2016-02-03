@@ -4,7 +4,6 @@ public class Node {
     private final int x_cordinate;
     private final int y_cordinate;
     private final String name;
-    private boolean isVisited = false;
 
     public Node(int x_cordinate, int y_cordinate, String name) {
         assert name != null;
@@ -19,14 +18,6 @@ public class Node {
 
     public int get_y_cordinate() {
         return y_cordinate;
-    }
-
-    public boolean isVisited() {
-        return isVisited;
-    }
-
-    public void setVisited(boolean isVisited) {
-        this.isVisited = isVisited;
     }
 
     public String getName() {

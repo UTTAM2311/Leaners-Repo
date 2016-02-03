@@ -9,7 +9,6 @@ import static org.junit.Assert.*;
 
 public class TSPTest {
 
-    private TSP tsp;
 
     @Test
     public void test_getSmallestPathUsingNNH() {
@@ -22,10 +21,11 @@ public class TSPTest {
         nodeList.add(node2);
         nodeList.add(node3);
         nodeList.add(node4);
-        tsp = new TSP(nodeList);
-        List<Node> nodes = tsp.getSmallestPathUsingNNH();
-        assertEquals(nodes.get(2).getName(), node4.getName());
-        assertEquals(nodes.get(3).getName(), node3.getName());
+        List<Node> nodes = NearestNeighbourHood.start(nodeList);
+        assertEquals(nodeList.size(), nodes.size());
+        assertNotEquals(nodeList, nodes);
+        List<Node> nodes2 = NearestNeighbourHood.start(node1, nodeList);
+        assertEquals(node1, nodes2.get(0));
     }
 
 }
